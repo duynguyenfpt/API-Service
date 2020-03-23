@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DIEMDANHAPIModelStoreContainer" CdmEntityContainer="DIEMDANHAPIEntities">
+    <EntitySetMapping Name="DiemDanh_NangSuatLaoDong">
+      <EntityTypeMapping TypeName="DIEMDANHAPIModel.DiemDanh_NangSuatLaoDong">
+        <MappingFragment StoreEntitySet="DiemDanh_NangSuatLaoDong">
+          <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+          <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+          <ScalarProperty Name="ThoiGianThucTeDiemDanh" ColumnName="ThoiGianThucTeDiemDanh" />
+          <ScalarProperty Name="DiemLuong" ColumnName="DiemLuong" />
+          <ScalarProperty Name="DiLam" ColumnName="DiLam" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="LyDoVangMat" ColumnName="LyDoVangMat" />
+          <ScalarProperty Name="ThoiGianXuongLo" ColumnName="ThoiGianXuongLo" />
+          <ScalarProperty Name="ThoiGianLenLo" ColumnName="ThoiGianLenLo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Header_DiemDanh_NangSuat_LaoDong">
+      <EntityTypeMapping TypeName="DIEMDANHAPIModel.Header_DiemDanh_NangSuat_LaoDong">
+        <MappingFragment StoreEntitySet="Header_DiemDanh_NangSuat_LaoDong">
+          <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+          <ScalarProperty Name="Ca" ColumnName="Ca" />
+          <ScalarProperty Name="NgayDiemDanh" ColumnName="NgayDiemDanh" />
+          <ScalarProperty Name="FetchDataTime" ColumnName="FetchDataTime" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Header_DiemDanh_NangSuat_LaoDong_Detail">
+      <EntityTypeMapping TypeName="DIEMDANHAPIModel.Header_DiemDanh_NangSuat_LaoDong_Detail">
+        <MappingFragment StoreEntitySet="Header_DiemDanh_NangSuat_LaoDong_Detail">
+          <ScalarProperty Name="HeaderID" ColumnName="HeaderID" />
+          <ScalarProperty Name="TotalEffort" ColumnName="TotalEffort" />
+          <ScalarProperty Name="ThanThucHien" ColumnName="ThanThucHien" />
+          <ScalarProperty Name="MetLoThucHien" ColumnName="MetLoThucHien" />
+          <ScalarProperty Name="XenThucHien" ColumnName="XenThucHien" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="isFilledFromAPI" ColumnName="isFilledFromAPI" />
+          <ScalarProperty Name="MaPhongBan" ColumnName="MaPhongBan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

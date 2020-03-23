@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ebb266361b3e4220870db6e454445709" Name="Diagram1">
+        <EntityTypeShape EntityType="DIEMDANHAPIModel.DiemDanh_NangSuatLaoDong" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIEMDANHAPIModel.Header_DiemDanh_NangSuat_LaoDong" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DIEMDANHAPIModel.Header_DiemDanh_NangSuat_LaoDong_Detail" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <AssociationConnector Association="DIEMDANHAPIModel.FK_DiemDanh_NangSuatLaoDong_Header_DiemDanh_NangSuat_LaoDong" ManuallyRouted="false" />
+        <AssociationConnector Association="DIEMDANHAPIModel.FK_DiemDanh_NangSuatLaoDong_Header_DiemDanh_NangSuat_LaoDong1" ManuallyRouted="false" />
+        <AssociationConnector Association="DIEMDANHAPIModel.FK_Header_DiemDanh_NangSuat_LaoDong_Detail_Header_DiemDanh_NangSuat_LaoDong" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

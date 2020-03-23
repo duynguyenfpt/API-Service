@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DIEMDANHAPIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DiemDanh_NangSuatLaoDong">
+    <Key>
+      <PropertyRef Name="MaNV" />
+      <PropertyRef Name="HeaderID" />
+    </Key>
+    <Property Name="MaNV" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="HeaderID" Type="int" Nullable="false" />
+    <Property Name="ThoiGianThucTeDiemDanh" Type="datetime" />
+    <Property Name="DiemLuong" Type="float" />
+    <Property Name="DiLam" Type="bit" />
+    <Property Name="GhiChu" Type="nvarchar" MaxLength="1000" />
+    <Property Name="LyDoVangMat" Type="nvarchar" MaxLength="1000" />
+    <Property Name="ThoiGianXuongLo" Type="datetime" />
+    <Property Name="ThoiGianLenLo" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Header_DiemDanh_NangSuat_LaoDong">
+    <Key>
+      <PropertyRef Name="HeaderID" />
+    </Key>
+    <Property Name="HeaderID" Type="int" Nullable="false" />
+    <Property Name="Ca" Type="int" Nullable="false" />
+    <Property Name="NgayDiemDanh" Type="datetime" Nullable="false" />
+    <Property Name="FetchDataTime" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+    <Property Name="Message" Type="nvarchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Header_DiemDanh_NangSuat_LaoDong_Detail">
+    <Key>
+      <PropertyRef Name="HeaderID" />
+    </Key>
+    <Property Name="HeaderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TotalEffort" Type="float" Nullable="false" />
+    <Property Name="ThanThucHien" Type="float" Nullable="false" />
+    <Property Name="MetLoThucHien" Type="float" Nullable="false" />
+    <Property Name="XenThucHien" Type="float" Nullable="false" />
+    <Property Name="GhiChu" Type="nvarchar(max)" />
+    <Property Name="isFilledFromAPI" Type="bit" Nullable="false" />
+    <Property Name="MaPhongBan" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <Association Name="FK_DiemDanh_NangSuatLaoDong_Header_DiemDanh_NangSuat_LaoDong_Detail">
+    <End Role="Header_DiemDanh_NangSuat_LaoDong_Detail" Type="Self.Header_DiemDanh_NangSuat_LaoDong_Detail" Multiplicity="1" />
+    <End Role="DiemDanh_NangSuatLaoDong" Type="Self.DiemDanh_NangSuatLaoDong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Header_DiemDanh_NangSuat_LaoDong_Detail">
+        <PropertyRef Name="HeaderID" />
+      </Principal>
+      <Dependent Role="DiemDanh_NangSuatLaoDong">
+        <PropertyRef Name="HeaderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Header_DiemDanh_NangSuat_LaoDong_Detail_Header_DiemDanh_NangSuat_LaoDong">
+    <End Role="Header_DiemDanh_NangSuat_LaoDong" Type="Self.Header_DiemDanh_NangSuat_LaoDong" Multiplicity="1" />
+    <End Role="Header_DiemDanh_NangSuat_LaoDong_Detail" Type="Self.Header_DiemDanh_NangSuat_LaoDong_Detail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Header_DiemDanh_NangSuat_LaoDong">
+        <PropertyRef Name="HeaderID" />
+      </Principal>
+      <Dependent Role="Header_DiemDanh_NangSuat_LaoDong_Detail">
+        <PropertyRef Name="HeaderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DIEMDANHAPIModelStoreContainer">
+    <EntitySet Name="DiemDanh_NangSuatLaoDong" EntityType="Self.DiemDanh_NangSuatLaoDong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Header_DiemDanh_NangSuat_LaoDong" EntityType="Self.Header_DiemDanh_NangSuat_LaoDong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Header_DiemDanh_NangSuat_LaoDong_Detail" EntityType="Self.Header_DiemDanh_NangSuat_LaoDong_Detail" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_DiemDanh_NangSuatLaoDong_Header_DiemDanh_NangSuat_LaoDong_Detail" Association="Self.FK_DiemDanh_NangSuatLaoDong_Header_DiemDanh_NangSuat_LaoDong_Detail">
+      <End Role="Header_DiemDanh_NangSuat_LaoDong_Detail" EntitySet="Header_DiemDanh_NangSuat_LaoDong_Detail" />
+      <End Role="DiemDanh_NangSuatLaoDong" EntitySet="DiemDanh_NangSuatLaoDong" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Header_DiemDanh_NangSuat_LaoDong_Detail_Header_DiemDanh_NangSuat_LaoDong" Association="Self.FK_Header_DiemDanh_NangSuat_LaoDong_Detail_Header_DiemDanh_NangSuat_LaoDong">
+      <End Role="Header_DiemDanh_NangSuat_LaoDong" EntitySet="Header_DiemDanh_NangSuat_LaoDong" />
+      <End Role="Header_DiemDanh_NangSuat_LaoDong_Detail" EntitySet="Header_DiemDanh_NangSuat_LaoDong_Detail" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,47 @@
+﻿Installing assembly 'C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe
+   logfile = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.InstallLog
+Installing service Service1...
+Service Service1 has been successfully installed.
+Creating EventLog source Service1 in log Application...
+Committing assembly 'C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe
+   logfile = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.InstallLog
+Installing assembly 'C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe
+   logfile = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.InstallLog
+Installing service Service1...
+Creating EventLog source Service1 in log Application...
+Rolling back assembly 'C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe
+   logfile = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.InstallLog
+Restoring event log to previous state for source Service1.
+Uninstalling assembly 'C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe
+   logfile = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.InstallLog
+Removing EventLog source Service1.
+Service Service1 is being removed from the system...
+Service Service1 was successfully removed from the system.
+Installing assembly 'C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe
+   logfile = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.InstallLog
+Installing service Service1...
+Service Service1 has been successfully installed.
+Creating EventLog source Service1 in log Application...
+Committing assembly 'C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe
+   logfile = C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.InstallLog

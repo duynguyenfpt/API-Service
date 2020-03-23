@@ -1,0 +1,13 @@
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe.config
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.exe
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\CallAttendanceAPIService.pdb
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\obj\Debug\CallAttendanceAPIService.ProjectInstaller.resources
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\obj\Debug\CallAttendanceAPIService.csproj.GenerateResource.cache
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\obj\Debug\CallAttendanceAPIService.exe
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\obj\Debug\CallAttendanceAPIService.pdb
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\EntityFramework.dll
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\EntityFramework.xml
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\obj\Debug\CallAttendanceAPIService.csproj.CopyComplete
+C:\Users\duynguyen\source\repos\CallAttendanceAPIService\CallAttendanceAPIService\obj\Debug\CallAttendanceAPIService.csprojAssemblyReference.cache
