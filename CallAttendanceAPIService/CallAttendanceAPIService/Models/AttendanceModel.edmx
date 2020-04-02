@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="DIEMDANHAPIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DIEMDANHAPIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="DiemDanh_NangSuatLaoDong">
           <Key>
             <PropertyRef Name="MaNV" />
@@ -27,19 +27,20 @@
           <Key>
             <PropertyRef Name="HeaderID" />
           </Key>
-          <Property Name="HeaderID" Type="int" Nullable="false" />
+          <Property Name="HeaderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Ca" Type="int" Nullable="false" />
           <Property Name="NgayDiemDanh" Type="datetime" Nullable="false" />
           <Property Name="FetchDataTime" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
-          <Property Name="Message" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="200" />
           <Property Name="VERSION" Type="nchar" MaxLength="20" />
+          <Property Name="isCreatedManually" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Header_DiemDanh_NangSuat_LaoDong_Detail">
           <Key>
             <PropertyRef Name="HeaderID" />
           </Key>
-          <Property Name="HeaderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HeaderID" Type="int" Nullable="false" />
           <Property Name="TotalEffort" Type="float" Nullable="false" />
           <Property Name="ThanThucHien" Type="float" Nullable="false" />
           <Property Name="MetLoThucHien" Type="float" Nullable="false" />
@@ -101,7 +102,8 @@
             <End Role="Header_DiemDanh_NangSuat_LaoDong_Detail" EntitySet="Header_DiemDanh_NangSuat_LaoDong_Detail" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DIEMDANHAPIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -129,13 +131,14 @@
           <Key>
             <PropertyRef Name="HeaderID" />
           </Key>
-          <Property Name="HeaderID" Type="Int32" Nullable="false" />
+          <Property Name="HeaderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Ca" Type="Int32" Nullable="false" />
           <Property Name="NgayDiemDanh" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="FetchDataTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Boolean" Nullable="false" />
-          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="VERSION" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="isCreatedManually" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="DiemDanh_NangSuatLaoDong" Relationship="Self.FK_DiemDanh_NangSuatLaoDong_Header_DiemDanh_NangSuat_LaoDong" FromRole="Header_DiemDanh_NangSuat_LaoDong" ToRole="DiemDanh_NangSuatLaoDong" />
           <NavigationProperty Name="DiemDanh_NangSuatLaoDong1" Relationship="Self.FK_DiemDanh_NangSuatLaoDong_Header_DiemDanh_NangSuat_LaoDong1" FromRole="Header_DiemDanh_NangSuat_LaoDong" ToRole="DiemDanh_NangSuatLaoDong" />
           <NavigationProperty Name="Header_DiemDanh_NangSuat_LaoDong_Detail" Relationship="Self.FK_Header_DiemDanh_NangSuat_LaoDong_Detail_Header_DiemDanh_NangSuat_LaoDong" FromRole="Header_DiemDanh_NangSuat_LaoDong" ToRole="Header_DiemDanh_NangSuat_LaoDong_Detail" />
@@ -144,7 +147,7 @@
           <Key>
             <PropertyRef Name="HeaderID" />
           </Key>
-          <Property Name="HeaderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HeaderID" Type="Int32" Nullable="false" />
           <Property Name="TotalEffort" Type="Double" Nullable="false" />
           <Property Name="ThanThucHien" Type="Double" Nullable="false" />
           <Property Name="MetLoThucHien" Type="Double" Nullable="false" />
@@ -241,6 +244,7 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="isCreatedManually" ColumnName="isCreatedManually" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

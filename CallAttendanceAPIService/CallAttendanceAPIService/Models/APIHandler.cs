@@ -61,8 +61,8 @@ namespace CallAttendanceAPIService.Models
 
             // start fetching data
             var sentRequest = new RequestParams();
-            sentRequest.requestedData.IDCaLamCiec = "CA" + sessionFetchData;
-            sentRequest.requestedData.ngay = dateFetchData;
+            sentRequest.data.IDCaLamViec = "CA" + sessionFetchData;
+            sentRequest.data.ngay = $"{dateFetchData.Year}-{dateFetchData.Month}-{dateFetchData.Day}";
             var serializer = new JavaScriptSerializer();
             var json = serializer.Serialize(sentRequest);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
@@ -74,19 +74,38 @@ namespace CallAttendanceAPIService.Models
             {
                 var response = await client.PostAsync(uri, data);
                 //string result = response.Content.ReadAsStringAsync().Result;
-                string result = response.Content.ReadAsStringAsync().Result;
-                dataPostBack = serializer.Deserialize<Result>(result);
+                response.EnsureSuccessStatusCode();
+                var result = response.Content.ReadAsStringAsync().Result;
+                // middle step to convert string in "data" object
+                var datafromAPI = serializer.Deserialize<DataFromApi>(result);
+                //
+                dataPostBack.success = datafromAPI.success;
+                dataPostBack.message = datafromAPI.message;
+                dataPostBack.VERSION = datafromAPI.VERSION;
+                
+                    dataPostBack.data = datafromAPI.data == null ?new List<Attendance>() : serializer.Deserialize<List<Attendance>>(datafromAPI.data);
             }
             catch (Exception ex)
             {
-                dataPostBack.success = false;
-                dataPostBack.message = ex.Message;
+                await Task.Run(() => {
+                    dataPostBack.success = false;
+                    dataPostBack.message = ex.Message;
+                });
+
             }
             dataPostBack.actualTimeFetching = time;
             dataPostBack.dateFetching = dateFetchData;
             dataPostBack.Session = sessionFetchData;
             return dataPostBack;
-
         }
+    }
+
+    class DataFromApi
+    {
+        public bool success { get; set; }
+        public string message { get; set; }
+
+        public string data { get; set; }
+        public string VERSION { get; set; }
     }
 }

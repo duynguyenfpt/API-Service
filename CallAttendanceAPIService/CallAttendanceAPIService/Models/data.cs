@@ -8,7 +8,7 @@ namespace CallAttendanceAPIService.Models
 {
     class data
     {
-        public DateTime ngay { get; set; }
-        public String IDCaLamCiec { get; set; }
+        public String ngay { get; set; }
+        public String IDCaLamViec { get; set; }
     }
 }

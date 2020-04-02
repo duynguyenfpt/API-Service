@@ -11,15 +11,19 @@ namespace CallAttendanceAPIService.DAO
     {
         public void Insert(int headerID)
         {
-            Header_DiemDanh_NangSuat_LaoDong_Detail header_detail = new Header_DiemDanh_NangSuat_LaoDong_Detail();
-            header_detail.HeaderID = headerID;
-            try
+            using (var db = new DIEMDANHAPIEntities())
             {
-                Connection.context.Header_DiemDanh_NangSuat_LaoDong_Detail.Add(header_detail);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                Header_DiemDanh_NangSuat_LaoDong_Detail header_detail = new Header_DiemDanh_NangSuat_LaoDong_Detail();
+                header_detail.HeaderID = headerID;
+                try
+                {
+                    db.Header_DiemDanh_NangSuat_LaoDong_Detail.Add(header_detail);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
     }

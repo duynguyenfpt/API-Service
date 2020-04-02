@@ -28,6 +28,7 @@ namespace CallAttendanceAPIService.Models
         public bool Status { get; set; }
         public string Message { get; set; }
         public string VERSION { get; set; }
+        public bool isCreatedManually { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DiemDanh_NangSuatLaoDong> DiemDanh_NangSuatLaoDong { get; set; }

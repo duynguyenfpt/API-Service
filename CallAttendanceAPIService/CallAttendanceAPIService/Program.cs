@@ -12,14 +12,19 @@ namespace CallAttendanceAPIService
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        static async Task Main()
         {
+#if (!DEBUG)
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
                 new Service1()
             };
             ServiceBase.Run(ServicesToRun);
+#else
+            Service1 myServ = new Service1();
+            await myServ.FetchAndUpdateDatabase(DateTime.Now);
+#endif
         }
     }
 }

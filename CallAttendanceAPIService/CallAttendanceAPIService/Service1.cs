@@ -22,66 +22,71 @@ namespace CallAttendanceAPIService
         AttendanceDAO attendanceDAO = new AttendanceDAO();
         HeaderDetailDAO headerDetailDAO = new HeaderDetailDAO();
 
-        public async void FetchAndUpdateDatabase(DateTime time)
+        public async Task FetchAndUpdateDatabase(DateTime time)
         {
-            using (var transaction = Connection.context.Database.BeginTransaction())
-            {
-                try
+            using (DIEMDANHAPIEntities db = new DIEMDANHAPIEntities()) {
+                using (var transaction = db.Database.BeginTransaction())
                 {
-                    //
-                    int timePoint = handler.getTimeLines(time);
-                    //
-                    Result dataReceived = await handler.fetchData(time);
-                    headerDAO.Insert(dataReceived);
-                    //
-                    if (dataReceived.success)
+                    try
                     {
+                        // IDENTIFY THE NEXT TIME POINT IF SUCCESSS
+                        int timePoint = handler.getTimeLines(time);
+                        // FETCH API
+                        Result dataReceived = await handler.fetchData(time);
+                        // 
                         int headerIDMin = headerDAO.getFirstSuccessfullyFetch(dataReceived.dateFetching, dataReceived.Session);
-                        int currenHeaderID = headerDAO.getHeader(dataReceived.dateFetching, dataReceived.Session, dataReceived.actualTimeFetching);
-                        if (headerIDMin == -1)
-                        {
-                            headerIDMin = currenHeaderID;
-                        }
                         //
-                        var listHaveNotAdded = attendanceDAO.getUnExistItemList(dataReceived.data, headerIDMin);
-                        List<DiemDanh_NangSuatLaoDong> attendanceList = new List<DiemDanh_NangSuatLaoDong>();
-                        foreach(var item in listHaveNotAdded)
+                        headerDAO.Insert(dataReceived);
+                        //
+                        if (dataReceived.success)
                         {
-                            DiemDanh_NangSuatLaoDong ddEntity = new DiemDanh_NangSuatLaoDong();
-                            ddEntity.HeaderID = headerIDMin;
-                            ddEntity.MaNV = item.MaNhanVien;
-                            ddEntity.ActualHeaderFetched = currenHeaderID;
-                            ddEntity.DiLam = true;
-                            ddEntity.isFilledFromAPI = true;
-                            ddEntity.isChangedManually = false;
-                            ddEntity.ThoiGianXuongLo = item.startTime;
-                            ddEntity.ThoiGianLenLo = item.endTime;
-                            attendanceList.Add(ddEntity);
-                        }
-                        attendanceDAO.Insert(attendanceList);
-                        DateTime nextTimePoint;
-                        if (timePoint == 5)
-                        {
-                            // next 2 AM morning
-                            nextTimePoint = new DateTime(time.Year, time.Month, time.Day + 1, 2, 0, 0);
+                            int currenHeaderID = headerDAO.getHeader(dataReceived.dateFetching, dataReceived.Session, dataReceived.actualTimeFetching);
+                            if (headerIDMin == -1)
+                            {
+                                headerIDMin = currenHeaderID;
+                                headerDetailDAO.Insert(headerIDMin);
+                            }
+                            //
+                            var listHaveNotAdded = attendanceDAO.getUnExistItemList(dataReceived.data, headerIDMin);
+                            List<DiemDanh_NangSuatLaoDong> attendanceList = new List<DiemDanh_NangSuatLaoDong>();
+                            foreach (var item in listHaveNotAdded)
+                            {
+                                DiemDanh_NangSuatLaoDong ddEntity = new DiemDanh_NangSuatLaoDong();
+                                ddEntity.HeaderID = headerIDMin;
+                                ddEntity.MaNV = item.MaNhanVien;
+                                ddEntity.ActualHeaderFetched = currenHeaderID;
+                                ddEntity.DiLam = true;
+                                ddEntity.isFilledFromAPI = true;
+                                ddEntity.isChangedManually = false;
+                                ddEntity.ThoiGianXuongLo = item.startTime;
+                                ddEntity.ThoiGianLenLo = item.endTime;
+                                attendanceList.Add(ddEntity);
+                            }
+                            attendanceDAO.Insert(attendanceList);
+                            DateTime nextTimePoint;
+                            if (timePoint == 5)
+                            {
+                                // next 2 AM morning
+                                nextTimePoint = new DateTime(time.Year, time.Month, time.Day + 1, 2, 0, 0);
+                            } else
+                            {
+                                nextTimePoint = new DateTime(time.Year, time.Month, time.Day, handler.timelinesHours[timePoint], handler.timelinesMinutes[timePoint], 0);
+                            }
+
+                            timer.Interval = nextTimePoint.Subtract(time).Seconds;
                         } else
                         {
-                            nextTimePoint = new DateTime(time.Year, time.Month, time.Day, handler.timelinesHours[timePoint], handler.timelinesMinutes[timePoint], 0);
+                            // 10 minutes each until successfully fetch
+                            timer.Interval = 10 * 1000 * 60;
                         }
 
-                        timer.Interval = nextTimePoint.Subtract(time).Seconds;
-                    } else
-                    {
-                        // 10 minutes each until successfully fetch
-                        timer.Interval = 10 * 1000 * 60;
+                        transaction.Commit();
                     }
-
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    WriteToFile(ex.Message);
-                    transaction.Rollback();
+                    catch (Exception ex)
+                    {
+                        WriteToFile(ex.Message);
+                        transaction.Rollback();
+                    }
                 }
             }
         }
@@ -90,9 +95,10 @@ namespace CallAttendanceAPIService
         {
             InitializeComponent();
         }
-        protected override void OnStart(string[] args)
+        protected override async void OnStart(string[] args)
         {
-            FetchAndUpdateDatabase(DateTime.Now);
+            Console.WriteLine("Start");
+            await FetchAndUpdateDatabase(DateTime.Now);
             timer.Elapsed += new ElapsedEventHandler(OnElapsedTime);
             //timer.Interval = 5000; //number in milisecinds  
             timer.Enabled = true;
@@ -101,9 +107,9 @@ namespace CallAttendanceAPIService
         {
             WriteToFile($"Stop At {DateTime.Now}");
         }
-        private void OnElapsedTime(object source, ElapsedEventArgs e)
+        private async void OnElapsedTime(object source, ElapsedEventArgs e)
         {
-            FetchAndUpdateDatabase(DateTime.Now);
+            await FetchAndUpdateDatabase(DateTime.Now);
         }
         public void WriteToFile(string Message)
         {

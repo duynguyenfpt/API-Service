@@ -18,28 +18,36 @@ namespace CallAttendanceAPIService.DAO
             header.Status = data.success;
             header.Message = data.message;
             header.VERSION = data.VERSION;
-            try
+            header.FetchDataTime = data.actualTimeFetching;
+            using (var db = new DIEMDANHAPIEntities())
             {
-                Connection.context.Header_DiemDanh_NangSuat_LaoDong.Add(header);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    db.Header_DiemDanh_NangSuat_LaoDong.Add(header);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
         //
-        public int getHeader(DateTime date,int session, DateTime timefetching) {
-            try
+        public int getHeader(DateTime date, int session, DateTime timefetching)
+        {
+            using (var db = new DIEMDANHAPIEntities())
             {
-                int headerID = Connection.context.Header_DiemDanh_NangSuat_LaoDong
-                   .Where(x=> x.NgayDiemDanh == date && x.Ca == session && x.FetchDataTime == timefetching)
-                   .Select(x=> x.HeaderID)
-                   .First();
-                //
-                return headerID;
-            }catch (Exception ex)
-            {
-                throw ex;
+                try
+                {
+                    string sqlQuery = @"select headerId from Header_DiemDanh_NangSuat_LaoDong where (NgayDiemDanh = @date and Ca = @session and FetchDataTime = @fetchDataTime)";
+                    var headerID =  db.Database.SqlQuery<int>(sqlQuery, new SqlParameter("date", date), new SqlParameter("session", session), new SqlParameter("fetchDataTime", timefetching)).FirstOrDefault();
+                    //
+                    return headerID;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
         // get the first successful fetch API
@@ -51,12 +59,21 @@ namespace CallAttendanceAPIService.DAO
             //list = db.Database.SqlQuery<TieuChiABC>(sqlPhongBanTieuChi, new SqlParameter("maphongban", departmentID),
             //    new SqlParameter("thang", month),
             //    new SqlParameter("nam", year)).ToList<TieuChiABC>();
-            string sqlQuery = @"select headerId where FetchDataTime = (Select Min(FetchDataTime) from Header_DiemDanh_NangSuat_LaoDong where NgayDiemDanh = @date and Ca = 
-                              @session and Status = true)";
-            try{
-                return Convert.ToInt32(Connection.context.Database.SqlQuery<int>(sqlQuery, new SqlParameter("date", date), new SqlParameter("session", session)));
-            } catch (Exception ex) {
-                throw ex;
+            using (var db = new DIEMDANHAPIEntities())
+            {
+                string sqlQuery = @"select headerId from Header_DiemDanh_NangSuat_LaoDong 
+                              where FetchDataTime = (Select Min(FetchDataTime) from Header_DiemDanh_NangSuat_LaoDong where NgayDiemDanh = @date and Ca = @session and (Status = 1 or isCreatedManually =1)) ";
+                try
+                {
+                    var minHeaderIDNull = db.Database.SqlQuery<int?>(sqlQuery, new SqlParameter("date", date), new SqlParameter("session", session)).FirstOrDefault();
+                    int minHeaderIDResult = minHeaderIDNull.HasValue ? minHeaderIDNull.Value : -1;
+                    return minHeaderIDResult;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
         }
+    }
 }

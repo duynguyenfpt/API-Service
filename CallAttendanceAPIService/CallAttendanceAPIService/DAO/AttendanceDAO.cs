@@ -13,43 +13,46 @@ namespace CallAttendanceAPIService.DAO
     {
         public List<Attendance> getUnExistItemList(List<Attendance> listID, int headerID)
         {
-            var listIDString = $"({listID[0].MaNhanVien}";
-            for (int index = 1; index < listID.Count; index++)
+            if (listID.Count == 0) {
+                return new List<Attendance>();
+            }
+            else
             {
-                listIDString += $",{listID[index].MaNhanVien}";
-                if (index == listID.Count - 1)
+                using (var db = new DIEMDANHAPIEntities())
                 {
-                    listIDString += ")";
-                }
-            }
-            string sqlQuery = "select MaNV from DiemDanh_NangSuatLaoDong" +
-                              "where HeaderID = @headerID and MaNV in @listMaNV";
-            try
-            {
-                List<String> IDs = Connection.context.Database.SqlQuery<String>(sqlQuery, new SqlParameter("headerID", headerID), new SqlParameter("listMaNV", listIDString)).ToList();
-                var filterIDList = listID.Where(x => IDs.Contains(x.MaNhanVien)).ToList();
-                return filterIDList;
+                    var listIDString = $"{listID[0].MaNhanVien}";
+                    for (int index = 1; index < listID.Count; index++)
+                    {
+                        listIDString += $",{listID[index].MaNhanVien}";
+                    }
+                    string sqlQuery = "select MaNV from DiemDanh_NangSuatLaoDong " +
+                                      "where HeaderID = @headerID and MaNV in (@listMaNV)";
+                    try
+                    {
+                        List<String> IDs = db.Database.SqlQuery<String>(sqlQuery, new SqlParameter("headerID", headerID), new SqlParameter("listMaNV", listIDString)).ToList();
+                        var filterIDList = listID.Where(x => !IDs.Contains(x.MaNhanVien)).ToList();
+                        return filterIDList;
 
-            }
-            catch (Exception ex)
-            {
-                throw ex;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
             }
         }
         //
         public void Insert(List<DiemDanh_NangSuatLaoDong> listAttendance)
         {
-            using (var transaction = Connection.context.Database.BeginTransaction())
+            using (var db = new DIEMDANHAPIEntities())
             {
                 try
                 {
-                    Connection.context.DiemDanh_NangSuatLaoDong.AddRange(listAttendance);
-                    Connection.context.SaveChanges();
-                    transaction.Commit();
+                    db.DiemDanh_NangSuatLaoDong.AddRange(listAttendance);
+                    db.SaveChanges();
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
                     throw ex;
                 }
             }

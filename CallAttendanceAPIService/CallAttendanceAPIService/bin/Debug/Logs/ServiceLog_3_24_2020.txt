@@ -2631,3 +2631,4 @@ Service is recall at 3/24/2020 3:39:06 AM
 Service is recall at 3/24/2020 3:39:11 AM
 Service is recall at 3/24/2020 3:39:16 AM
 Service is recall at 3/24/2020 3:39:21 AM
+Unable to cast object of type 'System.Data.Entity.Infrastructure.DbRawSqlQuery`1[System.Int32]' to type 'System.IConvertible'.

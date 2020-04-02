@@ -59,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\AttendanceDAO.cs" />
-    <Compile Include="DAO\Connection.cs" />
     <Compile Include="DAO\HeaderDAO.cs" />
     <Compile Include="DAO\HeaderDetailDAO.cs" />
     <Compile Include="Models\APIHandler.cs" />
@@ -125,7 +124,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Models\AttendanceModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

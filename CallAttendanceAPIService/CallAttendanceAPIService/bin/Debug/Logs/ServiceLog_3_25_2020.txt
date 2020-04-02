@@ -1,0 +1,2 @@
+Incorrect syntax near '@listMaNV'.
+An error occurred while updating the entries. See the inner exception for details.
